@@ -20,6 +20,9 @@ fighter_2 = Fighter(700, 310)
 run = True
 while run:
     draw_background()
+    fighter_1.draw(screen)
+    fighter_2.draw(screen)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
