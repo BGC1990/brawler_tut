@@ -17,6 +17,7 @@ class Fighter():
             dx = SPEED
 
         self.rect.x += dx
+        self.rect.y += dy
 
     def draw(self, surface):
         pygame.draw.rect(surface, (255, 0, 0), self.rect)
