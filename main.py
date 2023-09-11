@@ -14,6 +14,9 @@ background_image = pygame.image.load("assets/images/background/background.png").
 def draw_background():
     screen.blit(background_image, (0, 0))
 
+fighter_1 = Fighter(200, 310)
+fighter_2 = Fighter(700, 310)
+
 run = True
 while run:
     draw_background()
