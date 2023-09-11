@@ -20,6 +20,8 @@ fighter_2 = Fighter(700, 310)
 run = True
 while run:
     draw_background()
+    fighter_1.move()
+    fighter_2.move()
     fighter_1.draw(screen)
     fighter_2.draw(screen)
 
