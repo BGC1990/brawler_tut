@@ -24,7 +24,7 @@ run = True
 while run:
     clock.tick(FPS)
     draw_background()
-    fighter_1.move(SCREEN_WIDTH)
+    fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     fighter_1.draw(screen)
     fighter_2.draw(screen)
