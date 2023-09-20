@@ -112,6 +112,9 @@ class Fighter():
         #check if animation has finished
         if self.frame_index >= len(self.animation_list[self.action]):
             self.frame_index = 0
+            #check if attack
+            if self.action == 3 or self.action == 4:
+                self.attacking = False
 
     def attack(self, surface, target):
         self.attacking = True
