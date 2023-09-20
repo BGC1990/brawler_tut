@@ -58,6 +58,11 @@ while run:
 
     fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2)
 
+    #update fighters
+
+    fighter_1.update()
+    fighter_2.update()
+
     fighter_1.draw(screen)
     fighter_2.draw(screen)
 
