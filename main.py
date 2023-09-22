@@ -19,6 +19,9 @@ WHITE = (255, 255, 255)
 
 intro_count = 3
 last_count_update = pygame.time.get_ticks()
+score = [0, 0]#player scores
+round_over = False
+ROUND_OVER_COOLDOWN = 2000
 
 #define fighter variables
 WARRIOR_SIZE = 162
@@ -36,6 +39,9 @@ background_image = pygame.image.load("assets/images/background/background.png").
 #load fighter sprites
 warrior_sheet = pygame.image.load("assets/images/warrior/Sprites/warrior.png").convert_alpha()
 wizard_sheet = pygame.image.load("assets/images/wizard/Sprites/wizard.png").convert_alpha()
+
+#load victory image
+victory_img = pygame.image.load("assets/images/icons/victory.png").convert_alpha()
 
 #animation steps
 WARRIOR_ANIMATION_STEPS = [10, 8, 1, 7, 7, 3, 7]
@@ -77,12 +83,23 @@ while run:
             intro_count -= 1
             last_count_update = pygame.time.get_ticks()
     #update fighters
-
     fighter_1.update()
     fighter_2.update()
 
     fighter_1.draw(screen)
     fighter_2.draw(screen)
+
+    if round_over == False:
+        if fighter_1.alive == False:
+            score[1] += 1
+            round_over = True
+            round_over_time = pygame.time.get_ticks()
+        elif fighter_2.alive == False:
+            score[0] += 1
+            round_over = True
+            round_over_time = pygame.time.get_ticks()
+    else:
+        screen.blit(victory_img, (360, 150))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
