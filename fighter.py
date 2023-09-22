@@ -109,10 +109,11 @@ class Fighter():
             self.jump = False
             dy = screen_height - 20 - self.rect.bottom
 
-        if target.rect.centerx > self.rect.centerx:
-            self.flip = False
-        else:
-            self.flip = True
+        if self.alive == True:
+            if target.rect.centerx > self.rect.centerx:
+                self.flip = False
+            else:
+                self.flip = True
 
         if self.attack_cooldown > 0:
             self.attack_cooldown -= 1
