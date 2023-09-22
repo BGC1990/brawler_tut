@@ -17,6 +17,7 @@ class Fighter():
         self.jump = False
         self.attacking = False
         self.attack_type = 0
+        self.attack_cooldown = 0
         self.health = 100
 
     def load_images(self, sprite_sheet, animation_steps):
@@ -84,6 +85,9 @@ class Fighter():
         else:
             self.flip = True
 
+        if self.attack_cooldown > 0:
+            self.attack_cooldown -= 1
+
         self.rect.x += dx
         self.rect.y += dy
 
@@ -115,14 +119,16 @@ class Fighter():
             #check if attack
             if self.action == 3 or self.action == 4:
                 self.attacking = False
+                self.attack_cooldown = 12
 
     def attack(self, surface, target):
-        self.attacking = True
-        attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2 * self.rect.width, self.rect.height)
-        if attacking_rect.colliderect(target.rect):
-            target.health -= 10
+        if self.attack_cooldown == 0:
+            self.attacking = True
+            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2 * self.rect.width, self.rect.height)
+            if attacking_rect.colliderect(target.rect):
+                target.health -= 10
 
-        pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+            pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
 
     def update_action(self, new_action):
         #check if action is different from previous
