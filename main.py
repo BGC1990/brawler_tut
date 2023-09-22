@@ -100,7 +100,11 @@ while run:
             round_over_time = pygame.time.get_ticks()
     else:
         screen.blit(victory_img, (360, 150))
-
+        if pygame.time.get_ticks() - round_over_time > ROUND_OVER_COOLDOWN:
+            round_over = False
+            intro_count = 3
+            fighter_1 = Fighter(1, 200, 400, False, WARRIOR_DATA, warrior_sheet, WARRIOR_ANIMATION_STEPS)
+            fighter_2 = Fighter(2, 700, 400, True, WIZARD_DATA, wizard_sheet, WIZARD_ANIMATION_STEPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
