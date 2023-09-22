@@ -159,7 +159,10 @@ class Fighter():
                 #check if attack
                 if self.action == 3 or self.action == 4:
                     self.attacking = False
-                    self.attack_cooldown = 12
+                    if self.player == 1:
+                        self.attack_cooldown = 12
+                    elif self.player == 2:
+                        self.attack_cooldown = 20
                 #check if damage was taken
                 if self.action == 5:
                     self.hit = False
