@@ -20,6 +20,7 @@ class Fighter():
         self.attack_cooldown = 0
         self.hit = False
         self.health = 100
+        self.alive = True
 
     def load_images(self, sprite_sheet, animation_steps):
         #extract images
@@ -95,7 +96,11 @@ class Fighter():
     #handle animation
     def update(self):
         #check action
-        if self.hit == True:
+        if self.health <= 0:
+            self.health = 0
+            self.alive = False
+            self.update_action(6)
+        elif self.hit == True:
             self.update_action(5)
         elif self.attacking == True:
             if self.attack_type == 1:
@@ -118,17 +123,21 @@ class Fighter():
             self.update_time = pygame.time.get_ticks()
         #check if animation has finished
         if self.frame_index >= len(self.animation_list[self.action]):
-            self.frame_index = 0
-            #check if attack
-            if self.action == 3 or self.action == 4:
-                self.attacking = False
-                self.attack_cooldown = 12
-            #check if damage was taken
-            if self.action == 5:
-                self.hit = False
-                #if interrupt
-                self.attacking = False
-                self.attack_cooldown = 12
+            #player dead?
+            if self.alive == False:
+                self.frame_index = len(self.animation_list[self.action]) - 1
+            else:
+                self.frame_index = 0
+                #check if attack
+                if self.action == 3 or self.action == 4:
+                    self.attacking = False
+                    self.attack_cooldown = 12
+                #check if damage was taken
+                if self.action == 5:
+                    self.hit = False
+                    #if interrupt
+                    self.attacking = False
+                    self.attack_cooldown = 12
 
     def attack(self, surface, target):
         if self.attack_cooldown == 0:
