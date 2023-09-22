@@ -18,6 +18,7 @@ class Fighter():
         self.attacking = False
         self.attack_type = 0
         self.attack_cooldown = 0
+        self.hit = False
         self.health = 100
 
     def load_images(self, sprite_sheet, animation_steps):
@@ -94,7 +95,9 @@ class Fighter():
     #handle animation
     def update(self):
         #check action
-        if self.attacking == True:
+        if self.hit == True:
+            self.update_action(5)
+        elif self.attacking == True:
             if self.attack_type == 1:
                 self.update_action(3)
             elif self.attack_type == 2:
@@ -120,6 +123,12 @@ class Fighter():
             if self.action == 3 or self.action == 4:
                 self.attacking = False
                 self.attack_cooldown = 12
+            #check if damage was taken
+            if self.action == 5:
+                self.hit = False
+                #if interrupt
+                self.attacking = False
+                self.attack_cooldown = 12
 
     def attack(self, surface, target):
         if self.attack_cooldown == 0:
@@ -127,6 +136,7 @@ class Fighter():
             attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2 * self.rect.width, self.rect.height)
             if attacking_rect.colliderect(target.rect):
                 target.health -= 10
+                target.hit = True
 
             pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
 
