@@ -73,6 +73,8 @@ while run:
     draw_background()
     draw_health_bar(fighter_1.health, 20, 20)
     draw_health_bar(fighter_2.health, 580, 20)
+    draw_text("P1: " + str(score[0]), score_font, RED, 20, 60)
+    draw_text("P1: " + str(score[1]), score_font, RED, 580, 60)
 
     if intro_count <= 0:
         fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2, round_over)
